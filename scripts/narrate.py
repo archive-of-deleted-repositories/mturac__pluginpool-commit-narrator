@@ -39,6 +39,27 @@ _DIFF_GIT_LINE = re.compile(
 )
 
 
+def _unescape_git_quoted(path: str) -> str:
+    """Reverse the C-style escaping git uses inside double-quoted filenames.
+
+    git emits ``\"`` for embedded quotes, ``\\`` for backslashes, and ``\\t`` /
+    ``\\n`` for control characters. We only need the common cases.
+    """
+    out: list[str] = []
+    i = 0
+    while i < len(path):
+        ch = path[i]
+        if ch == "\\" and i + 1 < len(path):
+            nxt = path[i + 1]
+            replacements = {"n": "\n", "t": "\t", "r": "\r", '"': '"', "\\": "\\"}
+            out.append(replacements.get(nxt, nxt))
+            i += 2
+        else:
+            out.append(ch)
+            i += 1
+    return "".join(out)
+
+
 def changed_files(diff: str) -> list[str]:
     """Collect unique paths from a unified diff. Two sources, in order:
     - `+++ b/<path>` (tab-separated from any trailing timestamp) — preferred, robust to spaces.
@@ -57,10 +78,23 @@ def changed_files(diff: str) -> list[str]:
         if line.startswith("+++ b/"):
             saw_plusplus = True
             _add(line[len("+++ b/"):].split("\t", 1)[0].rstrip())
+        elif line.startswith('+++ "b/'):
+            # git quotes paths containing spaces / special characters.
+            saw_plusplus = True
+            quoted = line[len('+++ "'):].split("\t", 1)[0].rstrip()
+            if quoted.endswith('"'):
+                quoted = quoted[:-1]
+            _add(_unescape_git_quoted(quoted[2:] if quoted.startswith("b/") else quoted))
         elif line.startswith("Binary files "):
+            # Plain form.
             match = re.search(r" b/(.+?) differ$", line)
             if match:
                 _add(match.group(1))
+                continue
+            # Quoted form: ``Binary files "a/..." and "b/..." differ``.
+            quoted = re.search(r' and "b/((?:[^"\\]|\\.)*)" differ$', line)
+            if quoted:
+                _add(_unescape_git_quoted(quoted.group(1)))
 
     if saw_plusplus:
         return files
