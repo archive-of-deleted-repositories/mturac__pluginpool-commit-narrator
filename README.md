@@ -1,3 +1,5 @@
+![hero](./assets/hero.svg)
+
 # commit-narrator
 
 **Write commit messages that say *why*, not just *what*.**
