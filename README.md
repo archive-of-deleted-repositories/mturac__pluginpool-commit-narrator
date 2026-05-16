@@ -69,6 +69,10 @@ rate-limiting on (ip, email) — the abuse pattern surfaced in the
 - Heuristics are intentionally conservative. You'll get `chore` for messy mixed diffs — that's a signal to split the commit, not a bug.
 - The helper itself never calls a network service; only the slash command's Claude pass adds language.
 
+## Examples
+
+Step-by-step walkthroughs with real input fixtures and the helper's actual output live in [`examples/`](./examples/README.md). Three or four scenarios per plugin — from the happy path to the edge cases the test suite guards.
+
 ## Part of the pluginpool family
 
 Ten focused Claude Code plugins for everyday productivity:

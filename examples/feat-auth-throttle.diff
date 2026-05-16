@@ -1,0 +1,30 @@
+diff --git a/src/auth/login.py b/src/auth/login.py
+index 1234567..89abcde 100644
+--- a/src/auth/login.py
++++ b/src/auth/login.py
+@@ -10,6 +10,12 @@ class LoginHandler:
+     def __init__(self, db):
+         self.db = db
++        self._attempts = {}
++
++    def _throttle(self, ip, email):
++        key = (ip, email)
++        self._attempts.setdefault(key, []).append(time.time())
++        return len(self._attempts[key]) > 5
+
+     def login(self, request):
+         user = self.db.get_user(request.email)
+diff --git a/tests/test_login.py b/tests/test_login.py
+index abcdef0..fedcba9 100644
+--- a/tests/test_login.py
++++ b/tests/test_login.py
+@@ -22,3 +22,8 @@ def test_login_success():
+     handler = LoginHandler(db)
+     result = handler.login(_req("ok@example.com", "good"))
+     assert result.ok
++
++def test_login_throttles_after_5_attempts():
++    handler = LoginHandler(db)
++    for _ in range(6):
++        result = handler.login(_req("attacker@example.com", "wrong"))
++    assert result.throttled
