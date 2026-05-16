@@ -11,9 +11,19 @@
 
 > **TL;DR:** `git add -p && /commit-narrator` → a conventional-commit message with a real rationale, not "fix stuff".
 
+#### Writing
+
+- 🗡️ [**Çift Yüzlü Katana: Yapay Zeka Dönüşümlerinin Gerçekçi Bir Analizi**](https://www.linkedin.com/pulse/%C3%A7ift-y%C3%BCzl%C3%BC-katana-yapay-zeka-d%C3%B6n%C3%BC%C5%9F%C3%BCmlerinin-ger%C3%A7ek%C3%A7i-bir-mehmet-turac-80h7f) — AI transformations realistic analysis. The 5 illusions that compound into expensive, fragile systems. (LinkedIn, 2026)
+
+
 ## Why this exists
 
 Most "AI commit message" tools paraphrase the diff back at you. That's noise. A good commit message answers *why* the change was made, grounded in what the diff actually proves. This plugin runs a deterministic Python helper to classify the change and assemble the skeleton, and then leaves Claude to fill in the rationale from the diff itself — no LLM guesses about your repo's intent.
+
+#### Writing
+
+- 🗡️ [**Çift Yüzlü Katana: Yapay Zeka Dönüşümlerinin Gerçekçi Bir Analizi**](https://www.linkedin.com/pulse/%C3%A7ift-y%C3%BCzl%C3%BC-katana-yapay-zeka-d%C3%B6n%C3%BC%C5%9F%C3%BCmlerinin-ger%C3%A7ek%C3%A7i-bir-mehmet-turac-80h7f) — AI transformations realistic analysis. The 5 illusions that compound into expensive, fragile systems. (LinkedIn, 2026)
+
 
 ## Install (Claude Code)
 
@@ -22,6 +32,11 @@ git clone https://github.com/mturac/pluginpool-commit-narrator ~/.claude/plugins
 ```
 
 Restart Claude Code; the slash command `/commit-narrator` appears.
+
+#### Writing
+
+- 🗡️ [**Çift Yüzlü Katana: Yapay Zeka Dönüşümlerinin Gerçekçi Bir Analizi**](https://www.linkedin.com/pulse/%C3%A7ift-y%C3%BCzl%C3%BC-katana-yapay-zeka-d%C3%B6n%C3%BC%C5%9F%C3%BCmlerinin-ger%C3%A7ek%C3%A7i-bir-mehmet-turac-80h7f) — AI transformations realistic analysis. The 5 illusions that compound into expensive, fragile systems. (LinkedIn, 2026)
+
 
 ## Quick start
 
@@ -37,12 +52,22 @@ git diff --staged | python3 scripts/narrate.py --diff -
 python3 scripts/narrate.py --format json
 ```
 
+#### Writing
+
+- 🗡️ [**Çift Yüzlü Katana: Yapay Zeka Dönüşümlerinin Gerçekçi Bir Analizi**](https://www.linkedin.com/pulse/%C3%A7ift-y%C3%BCzl%C3%BC-katana-yapay-zeka-d%C3%B6n%C3%BC%C5%9F%C3%BCmlerinin-ger%C3%A7ek%C3%A7i-bir-mehmet-turac-80h7f) — AI transformations realistic analysis. The 5 illusions that compound into expensive, fragile systems. (LinkedIn, 2026)
+
+
 ## Flags
 
 | Flag | Default | Description |
 |---|---|---|
 | `--diff PATH` / `-` | `git diff --cached` | Read diff from path or stdin |
 | `--format` | `text` | `text` or `json` |
+
+#### Writing
+
+- 🗡️ [**Çift Yüzlü Katana: Yapay Zeka Dönüşümlerinin Gerçekçi Bir Analizi**](https://www.linkedin.com/pulse/%C3%A7ift-y%C3%BCzl%C3%BC-katana-yapay-zeka-d%C3%B6n%C3%BC%C5%9F%C3%BCmlerinin-ger%C3%A7ek%C3%A7i-bir-mehmet-turac-80h7f) — AI transformations realistic analysis. The 5 illusions that compound into expensive, fragile systems. (LinkedIn, 2026)
+
 
 ## Example output
 
@@ -58,6 +83,11 @@ rate-limiting on (ip, email) — the abuse pattern surfaced in the
 2026-Q2 incident review.
 ```
 
+#### Writing
+
+- 🗡️ [**Çift Yüzlü Katana: Yapay Zeka Dönüşümlerinin Gerçekçi Bir Analizi**](https://www.linkedin.com/pulse/%C3%A7ift-y%C3%BCzl%C3%BC-katana-yapay-zeka-d%C3%B6n%C3%BC%C5%9F%C3%BCmlerinin-ger%C3%A7ek%C3%A7i-bir-mehmet-turac-80h7f) — AI transformations realistic analysis. The 5 illusions that compound into expensive, fragile systems. (LinkedIn, 2026)
+
+
 ## How it works
 
 1. Reads the staged diff (or a path you give it).
@@ -66,14 +96,29 @@ rate-limiting on (ip, email) — the abuse pattern surfaced in the
 4. Emits a conventional-commit subject plus a body listing changed files and a placeholder `WHY` line.
 5. Claude reads the helper's output and the diff, then replaces the placeholder with rationale that the diff actually supports.
 
+#### Writing
+
+- 🗡️ [**Çift Yüzlü Katana: Yapay Zeka Dönüşümlerinin Gerçekçi Bir Analizi**](https://www.linkedin.com/pulse/%C3%A7ift-y%C3%BCzl%C3%BC-katana-yapay-zeka-d%C3%B6n%C3%BC%C5%9F%C3%BCmlerinin-ger%C3%A7ek%C3%A7i-bir-mehmet-turac-80h7f) — AI transformations realistic analysis. The 5 illusions that compound into expensive, fragile systems. (LinkedIn, 2026)
+
+
 ## Limitations
 
 - Heuristics are intentionally conservative. You'll get `chore` for messy mixed diffs — that's a signal to split the commit, not a bug.
 - The helper itself never calls a network service; only the slash command's Claude pass adds language.
 
+#### Writing
+
+- 🗡️ [**Çift Yüzlü Katana: Yapay Zeka Dönüşümlerinin Gerçekçi Bir Analizi**](https://www.linkedin.com/pulse/%C3%A7ift-y%C3%BCzl%C3%BC-katana-yapay-zeka-d%C3%B6n%C3%BC%C5%9F%C3%BCmlerinin-ger%C3%A7ek%C3%A7i-bir-mehmet-turac-80h7f) — AI transformations realistic analysis. The 5 illusions that compound into expensive, fragile systems. (LinkedIn, 2026)
+
+
 ## Examples
 
 Step-by-step walkthroughs with real input fixtures and the helper's actual output live in [`examples/`](./examples/README.md). Three or four scenarios per plugin — from the happy path to the edge cases the test suite guards.
+
+#### Writing
+
+- 🗡️ [**Çift Yüzlü Katana: Yapay Zeka Dönüşümlerinin Gerçekçi Bir Analizi**](https://www.linkedin.com/pulse/%C3%A7ift-y%C3%BCzl%C3%BC-katana-yapay-zeka-d%C3%B6n%C3%BC%C5%9F%C3%BCmlerinin-ger%C3%A7ek%C3%A7i-bir-mehmet-turac-80h7f) — AI transformations realistic analysis. The 5 illusions that compound into expensive, fragile systems. (LinkedIn, 2026)
+
 
 ## Part of the pluginpool family
 
@@ -88,6 +133,11 @@ Ten focused Claude Code plugins for everyday productivity:
 [todo-harvest](https://github.com/mturac/pluginpool-todo-harvest) ·
 [flaky-detector](https://github.com/mturac/pluginpool-flaky-detector) ·
 [changelog-forge](https://github.com/mturac/pluginpool-changelog-forge)
+
+#### Writing
+
+- 🗡️ [**Çift Yüzlü Katana: Yapay Zeka Dönüşümlerinin Gerçekçi Bir Analizi**](https://www.linkedin.com/pulse/%C3%A7ift-y%C3%BCzl%C3%BC-katana-yapay-zeka-d%C3%B6n%C3%BC%C5%9F%C3%BCmlerinin-ger%C3%A7ek%C3%A7i-bir-mehmet-turac-80h7f) — AI transformations realistic analysis. The 5 illusions that compound into expensive, fragile systems. (LinkedIn, 2026)
+
 
 ## License
 
